@@ -2,11 +2,6 @@
 
 > A modern, all-in-one operating system for managing clients, hiring workflows, and service operations. Designed for speed, scalability, and exceptional user experience.
 
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)
-![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react)
-![Vite](https://img.shields.io/badge/Vite-5+-646CFF?logo=vite)
-
 ---
 
 ## 🎯 Features
