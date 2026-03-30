@@ -20,10 +20,6 @@
   - Manage clients, projects, and service pipelines
   - Real-time updates and status tracking
 
-- 🧭 **Live Tracking System**
-  - Leaflet + OpenStreetMap (no Google Maps dependency)
-  - Lightweight and customizable
-
 - 🎨 **Custom Brand Integration**
   - Built-in support for brand kit (colors, typography, assets)
 
@@ -41,9 +37,6 @@
 ### Backend
 - Supabase (core backend)
 - Firebase (auth layer only)
-
-### Maps
-- Leaflet.js + OpenStreetMap
 
 ### Dev Tools
 - TypeScript
