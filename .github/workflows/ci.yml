@@ -1,0 +1,93 @@
+name: CI Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "Build failed: dist/index.html not found"
+            exit 1
+          fi
+
+  notify-vercel:
+    name: Notify Vercel
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Notify Vercel - Lint
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: Vercel - client-flow-os: lint
+        if: ${{ needs.lint.result == 'success' }}
+
+      - name: Notify Vercel - Tests
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: Vercel - client-flow-os: tests
+        if: ${{ needs.test.result == 'success' }}
+
+      - name: Notify Vercel - Build
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: Vercel - client-flow-os: build
+        if: ${{ needs.build.result == 'success' }}
