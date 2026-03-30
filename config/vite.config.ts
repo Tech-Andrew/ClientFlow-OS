@@ -5,9 +5,11 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  root: "../",
+  // We run Vite from the repo root (`npm run dev/build`), so keep `root`
+  // aligned with the current working directory.
+  root: ".",
   publicDir: "public",
-  envDir: "./",
+  envDir: ".",
   server: {
     host: "::",
     port: 8080,
